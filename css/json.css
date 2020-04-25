@@ -1,0 +1,57 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 1em;
+}
+
+h1 {
+    color: #80111b;
+}
+
+#json-btn {
+    background: #ff0000;
+    color: #ffffff;
+    padding: 6px 3px;
+    font-size: 16px;
+    border: 1px solid #000000;
+}
+
+#feed {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    border: 1px solid #555;
+    background: #cdcdcd;
+    margin: 10px 0;
+    min-height: 300px;
+}
+
+@media screen and (min-width: 400px) {
+    #feed {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (min-width: 800px) {
+        #feed {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    @media screen and (min-width: 1024px) {
+        #feed {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+}
+
+.item {
+    background: #ffffff;
+    border: 1px solid #333;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.item img {
+    max-width: 100%;
+    width: auto;
+    margin: 5px 0;
+}
+
