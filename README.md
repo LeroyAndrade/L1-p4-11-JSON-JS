@@ -1,3 +1,6 @@
+#
++ live url: http://30168.hosts2.ma-cloud.nl/bewijzenmap/periode4.4/bap/handOnJson11/
+
 # BAP: Hands-On JSON
 
 Voorbeeldcode aanlsuitend op de lessen van Simon over JSON.  

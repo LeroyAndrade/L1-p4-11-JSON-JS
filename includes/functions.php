@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Verbinding met de database maken
  *
@@ -31,7 +30,11 @@ function dbConnect() {
  * Daar kun je dan een pad achter plakken zodat je altijd een volledige url krijgt
  */
 function getWebsiteBaseUrl() {
+/*
 	$full_path_website = dirname( __DIR__ );
+	$document_root     = $_SERVER['DOCUMENT_ROOT'];
+*/
+	$full_path_website = str_replace( '\\', '/', dirname( __DIR__ ) );
 	$document_root     = $_SERVER['DOCUMENT_ROOT'];
 
 	// Pak alleen het pad
@@ -58,15 +61,40 @@ function getFeedFotos( PDO $connection ) {
 
 	try {
 		// TODO: Maak hier de query die alle foto's ophaalt en gebruik een LEFT JOIN om ook de gebruikers informatie meteen op te halen
-		$sql       = '';
+	//	$sql       = 'SELECT * FROM fotos';
+		$sql       = 'SELECT fotos.gebruiker_id,fotos.filename, fotos.titel, fotos.datum, gebruikers.username 
+		FROM fotos LEFT JOIN gebruikers 
+		on gebruikers.id = fotos.gebruiker_id LIMIT 4';
 		$statement = $connection->query( $sql );
 
+		//leeg array
 		$feed = [];
+		
+		//Haal SQL data op
 		foreach ( $statement as $foto ) {
-			// TODO: Voeg hier alle rijen toe aan de $feed array
+// TODO: Probeer de function getBaseUrl() te gebruiken om ook de volledige url naar het plaatje te berekenen
+			$url = getWebsiteBaseUrl() .  '/images/' . $foto['filename'];//filename is de db() tabel
 
-			// TODO: Probeer de function getBaseUrl() te gebruiken om ook de volledige url naar het plaatje te berekenen
-			// TODO Voeg dat toe aan de gegevens van elke foto
+			//sla website url bijv: localhost/images/zomervakantie&Leren.jpg 
+
+			//Maak in de foto array een apparte
+			$foto['url']=$url;
+			// TODO: Voeg hier alle rijen toe aan de $feed array
+			//Sla opgehaalde data op in een array als object!
+
+				// TODO Voeg dat toe aan de gegevens van elke foto
+			$feed[] = $foto;
+			/*
+			$rep=" ";
+			echo 
+			$foto['id'] 	      . $rep. 
+			$foto['titel'] 		  . $rep.
+			$foto['filename']	  . $rep.
+			$foto['datum'] 		  . $rep.
+			$foto['gebruiker_id'] . "\n";
+			*/
+			
+		
 		}
 
 		// De feed array teruggeven
@@ -77,3 +105,5 @@ function getFeedFotos( PDO $connection ) {
 		exit;
 	}
 }
+
+?>
